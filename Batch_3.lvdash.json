@@ -1,0 +1,132 @@
+{
+  "datasets": [
+    {
+      "name": "a0467bc4",
+      "displayName": "Resume Data Record Summary Count",
+      "queryLines": [
+        "select count(*) as total_resume from resume_data"
+      ],
+      "catalog": "resume_batch3",
+      "schema": "gold"
+    },
+    {
+      "name": "7af3d4dc",
+      "displayName": "User Counts Grouped By Experience Levels",
+      "queryLines": [
+        "select count(*) as user , experience from resume_batch3.gold.resume_data group by experience"
+      ],
+      "catalog": "resume_batch3",
+      "schema": "gold"
+    }
+  ],
+  "pages": [
+    {
+      "name": "f58f3c78",
+      "displayName": "report",
+      "layout": [
+        {
+          "widget": {
+            "name": "total-resume",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a0467bc4",
+                  "fields": [
+                    {
+                      "name": "sum(total_resume)",
+                      "expression": "SUM(`total_resume`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "total resume"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_resume)"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "14bad88c",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "7af3d4dc",
+                  "fields": [
+                    {
+                      "name": "sum(user)",
+                      "expression": "SUM(`user`)"
+                    },
+                    {
+                      "name": "experience",
+                      "expression": "`experience`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "total resume",
+                "showTitle": true
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(user)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "experience",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 2,
+            "width": 5,
+            "height": 4
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
