@@ -1,0 +1,8 @@
+resources:
+  dashboards:
+    batch_3:
+      display_name: "Batch_3"
+      warehouse_id: ${var.warehouse_id}
+      file_path: ../src/dashboard/batch_3.lvdash.json
+      dataset_catalog: ${var.catalog_name}
+      dataset_schema: "gold"
