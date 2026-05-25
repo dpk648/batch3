@@ -1,0 +1,25 @@
+resources:
+  pipelines:
+    pipeline_pipe:
+      name: pipe
+      configuration:
+        catalog_name: resume_batch3
+      libraries:
+        - glob:
+            include: ../src/Batch3_Staging_Silver/transformations_bronze/**
+        - glob:
+            include: ../src/Batch3_Staging_Silver/transformations_silver/**
+      schema: bronze
+      continuous: false
+      development: false
+      photon: true
+      channel: CURRENT
+      catalog: resume_batch3
+      serverless: true
+      root_path: ../src/Batch3_Staging_Silver
+      environment:
+        dependencies:
+          - PyPDF2
+          - pandas
+          - python-docx
+          - dlt
